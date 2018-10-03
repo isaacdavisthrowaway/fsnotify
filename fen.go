@@ -8,7 +8,6 @@ package fsnotify
 
 // DUMB TEST COMMENT
 // ANOTHER DUMB COMMENT
-// MORE
 
 // #include <errno.h>
 // #include <strings.h>
