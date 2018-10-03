@@ -7,7 +7,7 @@
 package fsnotify
 
 // DUMB TEST COMMENT
-
+// ANOTHER DUMB COMMENT
 
 // #include <errno.h>
 // #include <strings.h>
