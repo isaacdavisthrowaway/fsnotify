@@ -6,6 +6,9 @@
 
 package fsnotify
 
+// DUMB TEST COMMENT
+
+
 // #include <errno.h>
 // #include <strings.h>
 // #include <unistd.h>
