@@ -1,3 +1,3 @@
-stage 'build' {
+node {
     echo 'Hello world!'
 }
