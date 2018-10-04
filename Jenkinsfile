@@ -25,6 +25,71 @@ pipeline {
                         }
                     }
                 }
+                stage('1.10') {
+                    environment {
+                    	GOVERSION = '1.10.4'
+                        GOROOT = "/opt/go/${env.GOVERSION}"
+                        GOPATH = "/home/jenkins/go${env.GOVERSION}"
+                        GO = "${env.GOROOT}/bin/go"
+                        GOFMT = "${env.GOROOT}/bin/gofmt"
+                        GOLINT = "${env.GOROOT}/bin/golint"
+                    }
+                    steps {
+                        ws("${env.GOPATH}") {
+                            sh "mkdir -p src/github.com/fsnotify/fsnotify"
+                            sh "rsync -az ${SRC_DIR}/ src/github.com/fsnotify/fsnotify/"
+                            sh "cd src/github.com/fsnotify/fsnotify"
+                            sh "${GO} version"
+                            sh "${GO} env"
+                            sh "${GO} get -u golang.org/x/lint/golint"
+                            sh "${GO} get -t -v ./..."
+                            sh "${GO} test ./..."
+                            sh "test -z \"\$(${GOFMT} -s -l -w . | tee /dev/stderr)\""
+                            sh "test -z \"\$(${GOLINT} ./... | tee /dev/stderr)\""
+                            sh "${GO} vet ./..."
+                        }
+                    }
+                }
+                stage('1.9') {
+                    environment {
+                    	GOVERSION = '1.9.7'
+                        GOROOT = "/opt/go/${env.GOVERSION}"
+                        GOPATH = "/home/jenkins/go${env.GOVERSION}"
+                        GO = "${env.GOROOT}/bin/go"
+                    }
+                    steps {
+                        ws("${env.GOPATH}") {
+                            sh "mkdir -p src/github.com/fsnotify/fsnotify"
+                            sh "rsync -az ${SRC_DIR}/ src/github.com/fsnotify/fsnotify/"
+                            sh "cd src/github.com/fsnotify/fsnotify"
+                            sh "${GO} version"
+                            sh "${GO} env"
+                            sh "${GO} get -t -v ./..."
+                            sh "${GO} get -u golang.org/x/lint/golint"
+                            sh "${GO} test ./..."
+                        }
+                    }
+                }
+                stage('1.8') {
+                    environment {
+                    	GOVERSION = '1.8.7'
+                        GOROOT = "/opt/go/${env.GOVERSION}"
+                        GOPATH = "/home/jenkins/go${env.GOVERSION}"
+                        GO = "${env.GOROOT}/bin/go"
+                    }
+                    steps {
+                        ws("${env.GOPATH}") {
+                            sh "mkdir -p src/github.com/fsnotify/fsnotify"
+                            sh "rsync -az ${SRC_DIR}/ src/github.com/fsnotify/fsnotify/"
+                            sh "cd src/github.com/fsnotify/fsnotify"
+                            sh "${GO} version"
+                            sh "${GO} env"
+                            sh "${GO} get -t -v ./..."
+                            sh "${GO} get -u golang.org/x/lint/golint"
+                            sh "${GO} test ./..."
+                        }
+                    }
+                }
             }
         }
     }
