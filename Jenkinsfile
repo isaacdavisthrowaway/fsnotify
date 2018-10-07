@@ -1,3 +1,6 @@
+
+This is a test of force-pushing to a PR
+
 node {
 	stage 'build' {
 		node('go1.11-build') {
